@@ -7,7 +7,7 @@ from telegram.ext import (
     ContextTypes,
 )
 import logging
-
+import asyncio
 # Telegram Bot
 BOT_TOKEN: Final = '7498381758:AAGsCgpWWXvTt6lChYVQB0FPKVQRuapKqeY'
 BOT_USERNAME: Final = '@zayavka3235_bot'
@@ -65,6 +65,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Симулируем проверку подписки и одобрение
         if user_id in pending_requests:
             try:
+                asyncio.sleep(3)
                 await pending_requests[user_id].approve()
                 await query.edit_message_text("✅ Вы были успешно добавлены в канал. Спасибо за подписку!")
                 del pending_requests[user_id]
